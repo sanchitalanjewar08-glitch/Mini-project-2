@@ -1,0 +1,45 @@
+from collections import deque
+
+board = {
+    17: 7,    # Snake
+    54: 34,   # Snake
+    62: 19,   # Snake
+    64: 60,   # Snake
+    3: 22,    # Ladder
+    5: 8,     # Ladder
+    11: 26,   # Ladder
+    20: 29,   # Ladder
+    27: 56,   # Ladder
+    72: 91,   # Ladder
+    80: 99    # Ladder
+}
+
+def snake_ladder():
+    queue = deque([(1, 0)])
+    visited = set([1])
+
+    while queue:
+        position, moves = queue.popleft()
+
+        if position == 100:
+            print("Minimum dice throws:", moves)
+            return
+
+        for dice in range(1, 7):
+            next_position = position + dice
+
+            if next_position <= 100:
+                if next_position in board:
+                    next_position = board[next_position]
+
+                if next_position not in visited:
+                    visited.add(next_position)
+                    queue.append((next_position, moves + 1))
+
+    print("No solution found")
+
+print("Snake and Ladder Game")
+print("Starting position: 1")
+print("Winning position: 100")
+
+snake_ladder()
